@@ -1,5 +1,5 @@
 {
-  "definitions": {
+  "library": {
     "patron": {
       "type": "object",
       "properties": {
@@ -30,8 +30,8 @@
 
         "is_borrowing": {"type": "boolean"},
 
-        "book_copy": {"$ref": "#/definitions/book_copy"},
-        "patron": {"$ref": "#/definitions/patron"}
+        "book_copy": {"$ref": "library/book_copy"},
+        "patron": {"$ref": "library/patron"}
       },
       "required": ["checkout_id", "start_time", "end_time", "book_copy_id", "patron_id", "is_borrowing"]
     },
@@ -43,8 +43,8 @@
         "waitlist_id": {"type": "integer"},
         "patron_id": {"type": "integer"},
         "book_id": {"type": "integer"},
-        "patron": {"$ref": "#/definitions/patron"},
-        "book": {"$ref": "#/definitions/book"}
+        "patron": {"$ref": "library/patron"},
+        "book": {"$ref": "library/book"}
       },
       "required": ["waitlist_id", "patron_id", "book_id"]
     },
@@ -91,7 +91,7 @@
 
         "copy_number": {"type": "string"},
 
-        "book": {"$ref": "#/definitions/book"}
+        "book": {"$ref": "library/book"}
       },
 
       "required": ["book_copy_id", "book_id", "copy_number"]
@@ -107,7 +107,7 @@
 
         "contents": {"type": "string"},
 
-        "patron": {"$ref": "#/definitions/patron"}
+        "patron": {"$ref": "library/patron"}
 
       },
 
@@ -124,13 +124,14 @@
 
         "due_date": {"type": "string", "format": "date-time"},
 
-        "patron": {"$ref": "#/definitions/patron"},
+        "patron": {"$ref": "library/patron"}, 
 
-        "book": {"$ref": "#/definitions/book"}
+        "book": {"$ref": "library/book"}
 
       },
 
       "required": ["patron_id", "book_id", "due_date"]
     }
   }
+
 }
