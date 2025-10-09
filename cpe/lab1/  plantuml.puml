@@ -1,0 +1,78 @@
+@startuml
+!theme plain
+!define RECTANGLE class
+
+entity "AUTHOR" as Author {
+  * author_id : int
+  --
+  name : string
+}
+
+entity "BOOK" as Book {
+  * book_id : int
+  --
+  title : string
+  author_id : int
+  genre : string
+  language : string
+  year_published : int
+  pages : int
+}
+
+entity "BOOK_COPY" as BookCopy {
+  * book_copy_id : int
+  --
+  book_id : int
+  copy_number : string
+}
+
+entity "PATRON" as Patron {
+  * patron_id : int
+  --
+  first_name : string
+  last_name : string
+  contact_data : string
+}
+
+entity "CHECKOUT" as Checkout {
+  * checkout_id : int
+  --
+  start_time : datetime
+  end_time : datetime
+  book_copy_id : int
+  patron_id : int
+  is_borrowing : boolean
+}
+
+entity "WAITLIST" as Waitlist {
+  * waitlist_id : int
+  --
+  patron_id : int
+  book_id : int
+}
+
+entity "NOTIFICATION" as Notification {
+  * notification_id : int
+  --
+  patron_id : int
+  contents : string
+}
+
+entity "DEBTORS" as Debtors {
+  * patron_id : int
+  * book_id : int
+  --
+  due_date : datetime
+}
+
+Author ||--o{ Book : writes
+Book ||--o{ BookCopy : has
+BookCopy ||--o{ Checkout : borrowed_in
+Patron ||--o{ Checkout : borrows
+Patron ||--o{ Waitlist : queues
+Book ||--o{ Waitlist : requested
+Patron ||--o{ Notification : receives
+Patron ||--o{ Debtors : owes
+Book ||--o{ Debtors : overdue
+
+@enduml
