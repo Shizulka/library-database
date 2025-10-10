@@ -65,14 +65,16 @@ entity "DEBTORS" as Debtors {
   due_date : datetime
 }
 
-Author ||--o{ Book : writes
+Author ||--|{ Book : writes
 Book ||--o{ BookCopy : has
 BookCopy ||--o{ Checkout : borrowed_in
 Patron ||--o{ Checkout : borrows
 Patron ||--o{ Waitlist : queues
-Book ||--o{ Waitlist : requested
-Patron ||--o{ Notification : receives
-Patron ||--o{ Debtors : owes
-Book ||--o{ Debtors : overdue
+BookCopy ||--o{ Waitlist : requested
+Patron |o--o{ Notification : receives
+Checkout ||--|| Debtors : overdue
+Debtors ||--|| Notification : receives
+Waitlist ||--|| Notification : receives
+
 
 @enduml
