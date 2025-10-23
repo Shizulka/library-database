@@ -1,0 +1,55 @@
+@startuml
+left to right direction
+
+:Patron:
+:Debtor:
+:Librarian:
+
+:Debtor:<|..:Patron:: extends
+
+rectangle Library {
+(Authorization)
+(Returning a book)
+(Book borrowing)
+(Review of borrowed books)
+(Get in queue for a book)
+(View queue)
+(Receiving notifications)
+
+(Search for a book)
+
+(Registration of new patrons)
+(User management)
+(Adding new books)
+(Catalog management)
+(View all borrowings)
+(View all debtors)
+(Processing of borrowings)
+(Return processing)
+
+:Debtor:-->(Returning a book)
+
+:Patron:-->(Authorization)
+:Patron:-->(Receiving notifications)
+:Patron:-->(Search for a book)
+
+:Librarian:-->(Search for a book)
+:Librarian:-->(Registration of new patrons)
+:Librarian:-->(User management)
+:Librarian:-->(Adding new books)
+:Librarian:-->(Catalog management)
+:Librarian:-->(View all borrowings)
+:Librarian:-->(View all debtors)
+:Librarian:-->(Processing of borrowings)
+:Librarian:-->(Return processing)
+
+(Authorization)..>(Book borrowing) : extends
+(Authorization)..>(Get in queue for a book) : extends
+(Book borrowing)..>(Review of borrowed books) : extends
+(Book borrowing)..>(Returning a book) : include
+(Get in queue for a book)..>(View queue) : extends
+
+(Catalog management)..>(Adding new books) : include
+
+}
+@enduml
