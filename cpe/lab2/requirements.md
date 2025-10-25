@@ -24,10 +24,10 @@
 | № | requirement | description |
 |---|-------------|-------------|
 | NF1 | Productivity | The website pages must load within 3 seconds with <500 concurrent visitors. |
-| NF2 | Security | All passwords must be encrypted. |
+| NF2 | Security | All passwords must be securely stored. |
 | NF3 | Ease of use interface | The interface has to be intuitive for librarians and patrons. |
-| NF4 | Reliability | In the case of server failure data must not be lost. |
+| NF4 | Reliability | In the case of server failure data added within last 5 minutes must not be lost. |
 | NF5 | Scalability | The system must support expansion of the user base and books. |
-| NF6 | Compatibility | Must work in web browsers and on mobile devices. |
+| NF6 | Compatibility | Must work in web browsers based on Chromnium (version 135+), Firefox (version 135+) and on mobile devices (Android 7+ and iOS 15+). |
 | NF7 | Logging | All actions of patrons and librarians must be recorded in a log. |
 | NF8 | Backing up | Data must be regularly backed up. |
