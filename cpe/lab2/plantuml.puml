@@ -24,8 +24,7 @@ rectangle Library {
 (Catalog management)
 (View all borrowings)
 (View all debtors)
-(Processing of borrowings)
-(Return processing)
+(Process book reservations)
 
 :Debtor:-->(Returning a book)
 
@@ -40,16 +39,29 @@ rectangle Library {
 :Librarian:-->(Catalog management)
 :Librarian:-->(View all borrowings)
 :Librarian:-->(View all debtors)
-:Librarian:-->(Processing of borrowings)
-:Librarian:-->(Return processing)
+:Librarian:-->(Process book reservations)
 
-(Authorization)..>(Book borrowing) : extends
-(Authorization)..>(Get in queue for a book) : extends
-(Book borrowing)..>(Review of borrowed books) : extends
-(Book borrowing)..>(Returning a book) : include
-(Get in queue for a book)..>(View queue) : extends
 
-(Catalog management)..>(Adding new books) : include
+(Book borrowing)..>(Authorization) :use
+(Get in queue for a book)..>(Authorization): use
+
+(Review of borrowed books)..>(Book borrowing): use
+(Returning a book)..>(Book borrowing): include
+
+
+(Book borrowing)..>(Adding new books): include
+
+(Search for a book)..>(Adding new books): include
+
+(Process book reservations)..>(Book borrowing): use
+(Process book reservations)..>(Review of borrowed books): use
+(Process book reservations)..>(Returning a book): use
+(View queue)..>(Get in queue for a book): use
+(Get in queue for a book)..>(Adding new books): extends
+(View all borrowings)..>(Adding new books): use
+(View all borrowings)..>(View all debtors): include
+(Adding new books)..>(Catalog management): extends
+
 
 }
 @enduml
