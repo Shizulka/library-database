@@ -1,0 +1,30 @@
+@startuml
+actor   Patron
+actor Staff
+participant BorrowService
+participant CatalogService
+
+Patron-> CatalogService: searchBook(title)
+CatalogService-> Patron: returnBookList(List<Book>)
+
+Patron-> BorrowService: bookBorrow(patron_Id, book_Id)
+BorrowService-> CatalogService: checkAvailability(book_copy_Id)
+CatalogService-> BorrowService: status(copy_number)
+
+alt copy_number > 0
+
+ BorrowService-> Staff: notifyNewRequest
+ Staff-> BorrowService: approveBorrow
+ BorrowService-> Patron: borrowConfirmed(Success)
+ BorrowService-> CatalogService: updateBookStatus(book_copy_Id, copy_number, taken_number)
+ CatalogService-> BorrowService: updateSuccess
+
+else     else
+
+ BorrowService-> Patron: bookUnavailable
+ Patron-> BorrowService: joinQueue(book_Id)
+ BorrowService-> BorrowService: addToWaitingList(patron_Id)
+ BorrowService-> Patron: queueConfirmation(number_in_queue)
+
+end
+@enduml
