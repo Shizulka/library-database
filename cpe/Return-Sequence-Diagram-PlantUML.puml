@@ -1,0 +1,26 @@
+@startuml
+actor Staff
+participant BorrowService
+participant CatalogService
+
+Staff-> BorrowService: processReturn
+
+opt isPatronDebtor
+
+BorrowService-> BorrowService: checkEndTime(end_time)
+BorrowService-> BorrowService: calculateFine
+BorrowService-> Staff: displayFineAmount
+
+end
+
+BorrowService-> CatalogService: updateBookStatus(book_copy_Id, copy_number, taken_number)
+BorrowService-> BorrowService: deletingRecordOfBorrow
+
+opt isQueueExist
+
+BorrowService-> BorrowService: getNextUser(number_in_queue, patron_id)
+BorrowService-> Staff: notificationQueue(number_in_queue, patron_id)
+
+end
+
+@enduml
