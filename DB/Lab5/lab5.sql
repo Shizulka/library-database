@@ -1,7 +1,7 @@
 ALTER TABLE checkout
 DROP COLUMN is_borrowing;
 
-     //ми самі забули навіщо в чекаут це
+--Ми самі забули навіщо в перевірку це
 
 CREATE TABLE publisher_book(
 publisher_id int not null references publisher(publisher_id),
@@ -13,7 +13,7 @@ publisher_id SERIAL PRIMARY KEY,
 name  VARCHAR(32) NOT NULL
 );
 
-// у книжки може бути один автор назва і рік то краще мати ще видавця що б полегшити пошук
+--У книжки може бути один автор назва і рік ,то краще мати ще видавця що б полегшити пошук
 
 
 ALTER TABLE patron
@@ -23,7 +23,7 @@ ALTER TABLE patron
 ADD CONSTRAINT phone_number CHECK ( LENGTH(phone_number) = 10 AND  phone_number ~ '^[0-9]+$')
 
 
-//валідація данних
+--Валідація данних
 
 DROP TABLE debtors;
 
@@ -32,4 +32,5 @@ CREATE TYPE status_type AS ENUM ('Overdue', 'Soon', 'OK');
 ALTER TABLE checkout
 ADD COLUMN status status_type NOT NULL DEFAULT 'OK';
 
-//можна все запихнути в чекаут
+-- debtors зайвий по 3NF 
+
