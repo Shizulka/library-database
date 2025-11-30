@@ -3,15 +3,8 @@ DROP COLUMN is_borrowing;
 
 --Ми самі забули навіщо в перевірку це
 
-CREATE TABLE publisher_book(
-publisher_id int not null references publisher(publisher_id),
-book_id int not null references book (book_id)
-);
-
-CREATE TABLE publisher (
-publisher_id SERIAL PRIMARY KEY,
-name  VARCHAR(32) NOT NULL
-);
+ALTER TABLE book
+ADD publisher varchar(50) NOT NULl DEFAULT 'Невідомо';
 
 --У книжки може бути один автор назва і рік ,то краще мати ще видавця що б полегшити пошук
 
@@ -33,4 +26,5 @@ ALTER TABLE checkout
 ADD COLUMN status status_type NOT NULL DEFAULT 'OK';
 
 -- debtors зайвий по 3NF 
+
 
