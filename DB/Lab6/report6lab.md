@@ -1,7 +1,7 @@
 ***
-***
 
-##Міграції через Flyway 
+
+# Міграції через Flyway 
 
 Всі міграції проводилися через  Docker та командним рядоком через команду :
 
@@ -15,17 +15,20 @@ docker run --rm ^
   -password=IAnAFRyJnFpWsmUGiVLdfohFPCedaXDN
 
 ```
+***
+***
 
-#V2__Add_Wishlist.sql
+## V2__Add_Wishlist.sql
+
 ```sql 
 CREATE TABLE wishlist (
     wishlist_id SERIAL PRIMARY KEY,
     patron_id INT NOT NULL REFERENCES patron(patron_id),
     book_id INT NOT NULL REFERENCES book(book_id)
 );
-
 ```
-#Результат:
+
+## Результат:
 
 ```
 C:\Users\Home>docker run --rm ^
@@ -46,7 +49,10 @@ Migrating schema "public" to version "2 - Add Wishlist"
 Successfully applied 1 migration to schema "public", now at version v2 (execution time 00:01.030s)
 ```
 
-#V3__Update_Wishlist.sql
+***
+***
+
+## V3__Update_Wishlist.sql
 
 ```sql 
 ALTER TABLE  wishlist 
@@ -55,7 +61,8 @@ ADD COLUMN added_date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE  wishlist 
 ADD COLUMN  for_delete int not null 
 ```
-#Результат:
+
+## Результат:
 
 ```
 C:\Users\Home>docker run --rm ^
@@ -76,14 +83,17 @@ Migrating schema "public" to version "3 - Update Wishlist"
 Successfully applied 2 migrations to schema "public", now at version v3 (execution time 00:01.780s)
 ```
 
-#V4__Delete_Column .sql
+***
+***
+
+## V4__Delete_Column .sql
 
 ```sql 
 ALTER TABLE wishlist
 DROP COLUMN for_delete;
 ```
 
-#Результат:
+## Результат:
 
 ```
 C:\Users\Home>docker run --rm ^
@@ -103,7 +113,9 @@ Current version of schema "public": 3
 Migrating schema "public" to version "4 - Delete Column "
 Successfully applied 1 migration to schema "public", now at version v4 (execution time 00:00.769s)
 ```
+***
+***
 
-Історія міграцій у файлі flyway_schema_history
+ ## Історія міграцій у файлі flyway_schema_history
 
 <img width="1401" height="714" alt="image" src="https://github.com/user-attachments/assets/65d15e39-ffbc-4a1b-9b39-1b49770831d8" />
