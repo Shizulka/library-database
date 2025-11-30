@@ -3,7 +3,18 @@
 
 ##Міграції через Flyway 
 
-Всі міграції проводилися через  Docker та команий рядок 
+Всі міграції проводилися через  Docker та командним рядоком через команду :
+
+```
+docker run --rm ^
+  -v "C:\Users\Home\Desktop\sql":/flyway/sql ^
+  flyway/flyway ^
+  migrate ^
+  -url="jdbc:postgresql://hopper.proxy.rlwy.net:44865/railway" ^
+  -user=postgres ^
+  -password=IAnAFRyJnFpWsmUGiVLdfohFPCedaXDN
+
+```
 
 #V2__Add_Wishlist.sql
 ```sql 
