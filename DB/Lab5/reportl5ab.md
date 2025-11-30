@@ -12,11 +12,11 @@ DROP COLUMN is_borrowing;
 Видалення зайвого поля `is_borrowing`, оскільки статус видачі можна визначити за наявністю дати повернення або статусу.
 
 
-### Таблиця ` book`
+### Таблиця `book`
 
 ``` sql
 ALTER TABLE book
-ADD publisher varchar(50) NOT NULl DEFAULT 'Невідомо';
+ADD publisher varchar(50) NOT NULL DEFAULT 'Невідомо';
 ```
 
 У книжки може бути один автор назва і рік ,то краще мати ще видавця що б полегшити пошук.
@@ -56,7 +56,7 @@ Debtors був перенесений в якості  ENUM в таблицю ch
 
 #### Таблиця book
 
-book_id -> title, author, year ,publisher_id
+book_id -> title, author, year, publisher_id
 
 #### Таблиця patron
 
@@ -70,7 +70,8 @@ checkout_id -> book_id, patron_id, checkout_date, status
 
 #### Третя нормальна форма (3НФ)
 
-Таблиця debtors порушувала принципи нормалізації, оскільки містила дані, що повністю обчислюються на основі checkout . Зберігання цих даних окремо створює ризик розсинхронізації.
+Таблиця debtors порушувала принципи нормалізації, оскільки містила дані, що повністю обчислюються на основі checkout. Зберігання цих даних окремо створює ризик розсинхронізації.
+
 Ми видалили debtors і додали поле status в checkout.
 
 
