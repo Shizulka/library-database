@@ -93,4 +93,6 @@ Migrating schema "public" to version "4 - Delete Column "
 Successfully applied 1 migration to schema "public", now at version v4 (execution time 00:00.769s)
 ```
 
+Історія міграцій у файлі flyway_schema_history
+
 <img width="1401" height="714" alt="image" src="https://github.com/user-attachments/assets/65d15e39-ffbc-4a1b-9b39-1b49770831d8" />
