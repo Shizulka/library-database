@@ -1,0 +1,52 @@
+@startuml
+
+|Patron|
+start
+:Search book;
+:Send borrow request;
+
+|Catalog Service|
+:Check availability;
+:Send availability status;
+
+|Borrow System|
+if (Copy number > 0?) then (yes)
+  :Send borrow request to Staff;
+else (no)
+  :Notify Unavailability;
+
+  |Patron|
+  :Decide to join queue;
+  if (Join queue?) then (yes)
+      |Borrow System|
+      :Send queue request;
+
+      |Staff|
+      :Add to waiting list;
+
+      |Patron|
+      :Receive queue confirmation;
+      stop
+  else (no)
+      stop
+  endif
+endif
+
+|Staff|
+:Approve borrow;
+
+|Borrow System|
+fork
+  |Catalog Service|
+  :Update book status;
+fork again
+  |Borrow System|
+  :Generate Due Date;
+end fork
+
+|Staff|
+:Borrow completed;
+|Patron|
+:Receive Book;
+stop
+@enduml
