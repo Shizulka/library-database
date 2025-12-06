@@ -3,84 +3,67 @@
 skinparam linetype polyline
 left to right direction
 
-rectangle "External Systems" as EXT {
-  node "OAuth Provider\n(Identity Provider)" as OAuth <<external>>
-  node "Email Gateway" as MsgGateway <<external>>
-  node "Payment Provider (HTTP API)" as Payment <<external>>
-  node "External Inventory API" as ExtInv <<external>>
+frame "External Systems" as EXT {
+  node "<<external>>\nEmail Gateway" as MsgGateway
 }
 
 frame "Library System (System Boundary)" {
   component "Client UI / Web" as UI
   interface I_UI
-  UI -- I_UI
+  UI --> I_UI
 
   component "API Gateway / Backend" as APIGW
   interface I_API
-  I_UI -d- I_API
-  APIGW -- I_API
+  I_UI --> I_API
+  APIGW <-- I_API
 
   component "Catalog Service" as Catalog
   interface I_Catalog
-  APIGW -d-> I_Catalog
-  Catalog -- I_Catalog
+  APIGW --> I_Catalog
+  Catalog <-- I_Catalog
 
   component "Inventory Service" as Inventory
   interface I_Inventory
-  APIGW -d-> I_Inventory
-  Inventory -- I_Inventory
+  APIGW --> I_Inventory
+  Inventory <-- I_Inventory
 
   component "Circulation Service" as Circulation
   interface I_Circulation
-  APIGW -d-> I_Circulation
-  Circulation -- I_Circulation
+  APIGW --> I_Circulation
+  Circulation <-- I_Circulation
 
   component "User Service" as UserService
   interface I_User
-  APIGW -d-> I_User
-  UserService -- I_User
+  APIGW --> I_User
+  UserService <-- I_User
 
   component "Notification Service" as Notify
   interface I_Notify
-  APIGW -d-> I_Notify
-  Notify -- I_Notify
-
-  component "Recommendation Engine" as Recommender
-  interface I_Recommender
-  APIGW -d-> I_Recommender
-  Recommender -- I_Recommender
+  APIGW --> I_Notify
+  Notify <-- I_Notify
 
   component "Data Access / Repository" as Repo
   interface I_Repo
-  Catalog - I_Repo
-  Inventory - I_Repo
-  Circulation - I_Repo
-  UserService - I_Repo
-  Notify - I_Repo
-  Repo -- I_Repo
+  Catalog -> I_Repo
+  Inventory -> I_Repo
+  Circulation -> I_Repo
+  UserService -> I_Repo
+  Notify -> I_Repo
+  Repo -> I_Repo
 
   database "Library Database:\nbook, author, genre,\nauthor_book, book_genres,\nbook_copy, checkout, waitlist,\nwishlist, patron, notification" as DB
-  I_Repo -d-> DB
+  I_Repo --> DB
 
   component "Auth Service" as Auth
   interface I_Auth
   APIGW -d-> I_Auth
-  Auth -- I_Auth
-  I_Auth -d-> OAuth
+  Auth -d-> I_User
+  Auth <-- I_Auth
 
-  I_Notify -d-> MsgGateway : "SMTP / HTTP webhook"
-  I_API -d-> Payment : "HTTP callbacks / webhook"
-  I_Inventory -d-> ExtInv : "HTTP API"
+
+  I_Notify --> EXT
 }
 
-note bottom
-Channels:
-- UI <-> API Gateway : HTTP/HTTPS (REST/GraphQL)
-- API Gateway -> Services : HTTP / gRPC
-- Services -> Repository : DB Query (SQL)
-- Notification -> Email : SMTP / HTTP webhook
-- Auth -> OAuth : OAuth2 / OpenID Connect
-end note
 
 legend right
   Catalog Service -> book, author, genre, author_book, book_genres
