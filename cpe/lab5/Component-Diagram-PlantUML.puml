@@ -1,9 +1,6 @@
 @startuml
 
-skinparam componentStyle uml2
-skinparam interfaceStyle circle
 skinparam linetype polyline
-skinparam componentSpacing 30
 left to right direction
 
 rectangle "External Systems" as EXT {
