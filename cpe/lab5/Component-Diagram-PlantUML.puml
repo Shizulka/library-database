@@ -56,8 +56,8 @@ frame "Library System (System Boundary)" {
 
   component "Auth Service" as Auth
   interface I_Auth
-  APIGW -d-> I_Auth
-  Auth -d-> I_User
+  APIGW --> I_Auth
+  Auth --> I_User
   Auth <-- I_Auth
 
 
