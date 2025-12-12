@@ -41,27 +41,46 @@ frame "Library System (System Boundary)" {
   interface I_Notify
   APIGW --> I_Notify
   Notify <-- I_Notify
-
-  component "Data Access / Repository" as Repo
-  interface I_Repo
-  Catalog -> I_Repo
-  Inventory -> I_Repo
-  Circulation -> I_Repo
-  UserService -> I_Repo
-  Notify -> I_Repo
-  Repo -> I_Repo
+  
+  component "Catalog Repository" as CatalogRepo
+  interface I_CatalogRepo
+  Catalog -> I_CatalogRepo
+  CatalogRepo <- I_CatalogRepo
+  
+  component "Inventory Repository" as InventoryRepo
+  interface I_InventoryRepo
+  Inventory -> I_InventoryRepo
+  InventoryRepo <- I_InventoryRepo
+  
+  component "Circulation Repository" as CirculationRepo
+  interface I_CirculationRepo
+  Circulation -> I_CirculationRepo
+  CirculationRepo <- I_CirculationRepo
+  
+  component "User Repository" as UserRepo
+  interface I_UserRepo
+  UserService -> I_UserRepo
+  UserRepo <- I_UserRepo
+  
+  component "Notification Repository" as NotifyRepo
+  interface I_NotifyRepo
+  Notify -> I_NotifyRepo
+  NotifyRepo <- I_NotifyRepo
 
   database "Library Database:\nbook, author, genre,\nauthor_book, book_genres,\nbook_copy, checkout, waitlist,\nwishlist, patron, notification" as DB
-  I_Repo --> DB
+  CatalogRepo -> DB
+  InventoryRepo -> DB
+  CirculationRepo -> DB
+  UserRepo -> DB
+  NotifyRepo -> DB
 
   component "Auth Service" as Auth
   interface I_Auth
   APIGW --> I_Auth
-  Auth --> I_User
+  Auth --> I_UserRepo
   Auth <-- I_Auth
 
-
-  I_Notify --> EXT
+  Notify --> MsgGateway
 }
 
 
