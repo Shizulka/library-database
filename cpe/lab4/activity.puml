@@ -3,7 +3,9 @@
 |Patron|
 start
 :Search book;
-:Send borrow request;
+
+|Borrow System|
+:Borrow request;
 
 |Catalog Service|
 :Check availability;
